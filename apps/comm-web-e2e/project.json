@@ -1,0 +1,9 @@
+{
+  "name": "comm-web-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/comm-web-e2e/src",
+  "implicitDependencies": ["comm-web"],
+  "// targets": "to see all targets run: nx show project comm-web-e2e --web",
+  "targets": {}
+}

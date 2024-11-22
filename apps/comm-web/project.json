@@ -1,0 +1,53 @@
+{
+  "name": "comm-web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/comm-web/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rspack:rspack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "web",
+        "outputPath": "dist/apps/comm-web",
+        "index": "apps/comm-web/src/index.html",
+        "main": "apps/comm-web/src/main.tsx",
+        "tsConfig": "apps/comm-web/tsconfig.app.json",
+        "rspackConfig": "apps/comm-web/rspack.config.js",
+        "assets": ["apps/comm-web/src/favicon.ico", "apps/comm-web/src/assets"]
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production",
+          "optimization": true,
+          "sourceMap": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/rspack:dev-server",
+      "options": {
+        "buildTarget": "comm-web:build:development"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "buildTarget": "comm-web:build:production"
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "comm-web:build",
+        "spa": true
+      }
+    }
+  }
+}
