@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "chat/Module": ["apps/chat/src/remote-entry.ts"],
+      "dash/Module": ["apps/dash/src/remote-entry.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

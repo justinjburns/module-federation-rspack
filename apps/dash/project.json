@@ -1,0 +1,62 @@
+{
+  "name": "dash",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dash/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rspack:rspack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "web",
+        "outputPath": "dist/apps/dash",
+        "index": "apps/dash/src/index.html",
+        "main": "apps/dash/src/main.ts",
+        "tsConfig": "apps/dash/tsconfig.app.json",
+        "rspackConfig": "apps/dash/rspack.config.ts",
+        "assets": ["apps/dash/src/favicon.ico", "apps/dash/src/assets"]
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production",
+          "optimization": true,
+          "sourceMap": false,
+          "rspackConfig": "apps/dash/rspack.config.prod.ts"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/rspack:module-federation-dev-server",
+      "options": {
+        "buildTarget": "dash:build:development",
+        "port": 4201
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "buildTarget": "dash:build:production"
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/rspack:module-federation-static-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "serveTarget": "dash:serve"
+      },
+      "configurations": {
+        "development": {
+          "serveTarget": "dash:serve:development"
+        },
+        "production": {
+          "serveTarget": "dash:serve:production"
+        }
+      }
+    }
+  }
+}
